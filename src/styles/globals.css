@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@400;700;900&family=Shippori+Mincho:wght@400;600;800&display=swap');
+
+:root {
+  --bg-void:     #07050b;
+  --bg-deep:     #11091c;
+  --violet-core: #8b3df0;
+  --violet-glow: #c89bff;
+  --violet-ash:  #3a1d5e;
+  --bone:        #e8e2d4;
+  --blood:       #5a0c2e;
+
+  --font-logo:   'Yuji Syuku', serif;
+  --font-en-head: 'Cinzel Decorative', serif;
+  --font-en-body: 'Cormorant Garamond', serif;
+  --font-ja-head: 'Noto Serif JP', serif;
+  --font-ja-body: 'Shippori Mincho', serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  /* height: 100% にすると scrollHeight が 100vh に固定されて
+     main セクションの高さがスクロール進捗計算に反映されないので min-height に */
+  min-height: 100%;
+  background: var(--bg-void);
+  color: var(--bone);
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-ja-body), var(--font-en-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
