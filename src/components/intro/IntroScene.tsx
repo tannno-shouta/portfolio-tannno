@@ -154,12 +154,10 @@ export function IntroScene() {
             luminanceSmoothing={0.85}
             mipmapBlur
           />
-          {!isMobile && (
-            <ChromaticAberration
-              blendFunction={BlendFunction.NORMAL}
-              offset={new THREE.Vector2(0.002, 0.002)}
-            />
-          )}
+          <ChromaticAberration
+            blendFunction={BlendFunction.NORMAL}
+            offset={isMobile ? new THREE.Vector2(0, 0) : new THREE.Vector2(0.002, 0.002)}
+          />
           <Vignette eskil={false} offset={0.4} darkness={0.9} />
         </EffectComposer>
       </Canvas>
