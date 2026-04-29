@@ -32,8 +32,62 @@ html, body, #root {
   overflow-x: hidden;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-ja-body), var(--font-en-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* === マウス型スクロールインジケーター === */
+.scroll-mouse {
+  width: 26px;
+  height: 42px;
+  border: 1.5px solid rgba(200, 155, 255, 0.65);
+  border-radius: 13px;
+  position: relative;
+  box-shadow: 0 0 18px rgba(139, 61, 240, 0.25),
+              inset 0 0 12px rgba(139, 61, 240, 0.15);
+  background: rgba(20, 10, 35, 0.25);
+  backdrop-filter: blur(2px);
+}
+
+.scroll-mouse::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 4px;
+  height: 7px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--violet-glow), var(--violet-core));
+  box-shadow: 0 0 8px var(--violet-core),
+              0 0 16px rgba(200, 155, 255, 0.6);
+  animation: scrollDot 1.8s cubic-bezier(0.4, 0.1, 0.4, 1) infinite;
+}
+
+@keyframes scrollDot {
+  0%   { transform: translateY(0);    opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(16px); opacity: 0; }
+}
+
+/* === About: 3本柱の3カラムグリッド（モバイルで1列フォールバック） === */
+.about-pillars-grid {
+  margin-top: 4.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  align-items: stretch;
+}
+
+@media (max-width: 880px) {
+  .about-pillars-grid {
+    grid-template-columns: 1fr;
+  }
 }

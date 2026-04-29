@@ -1,6 +1,8 @@
 import { IntroScene } from './components/intro/IntroScene';
 import { ScrollProgressProvider } from './hooks/ScrollProgressContext';
 import { SectionFade } from './components/layout/SectionFade';
+import { Hero } from './components/sections/Hero';
+import { About } from './components/sections/About';
 import './styles/globals.css';
 
 const sectionStyle: React.CSSProperties = {
@@ -25,23 +27,21 @@ export default function App() {
 
       {/* 上に乗るスクロール可能なコンテンツ */}
       <main style={{ position: 'relative', zIndex: 5 }}>
-        {/* Hero: 1st viewport は空のままで、背景の名前ロゴを見せる */}
-        <section style={{ minHeight: '100vh' }} aria-label="hero" />
+        {/* Hero: 1st viewport（背景の名前ロゴを見せつつ微細装飾） */}
+        <Hero />
 
-        {/* 以下は Step 5-8 で本実装する仮プレースホルダー */}
-        <SectionFade as="section" style={sectionStyle}>
-          ABOUT — coming soon
-        </SectionFade>
+        {/* 以下は Step 6-8 で本実装する仮プレースホルダー */}
+        <About />
 
-        <SectionFade as="section" style={sectionStyle}>
+        <SectionFade as="section" id="works" style={sectionStyle}>
           WORKS — coming soon
         </SectionFade>
 
-        <SectionFade as="section" style={sectionStyle}>
+        <SectionFade as="section" id="skills" style={sectionStyle}>
           SKILLS — coming soon
         </SectionFade>
 
-        <SectionFade as="section" style={sectionStyle}>
+        <SectionFade as="section" id="contact" style={sectionStyle}>
           CONTACT — coming soon
         </SectionFade>
       </main>

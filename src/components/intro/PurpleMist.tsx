@@ -55,14 +55,14 @@ const MIST_FRAG = /* glsl */`
     center = clamp(center, 0.0, 1.0);
     float density = m * (0.4 + center * 0.6);
 
-    // ラベンダーグラデーション（青み強め）
-    vec3 deep   = vec3(0.10, 0.07, 0.22);
-    vec3 violet = vec3(0.40, 0.30, 0.68);
-    vec3 glow   = vec3(0.78, 0.68, 1.00);
+    // ラベンダーグラデーション（明るさを抑えて文字が読みやすく）
+    vec3 deep   = vec3(0.08, 0.05, 0.16);
+    vec3 violet = vec3(0.30, 0.22, 0.52);
+    vec3 glow   = vec3(0.55, 0.45, 0.78);
     vec3 col = mix(deep, violet, smoothstep(0.2, 0.55, density));
     col      = mix(col, glow,    smoothstep(0.55, 0.85, density));
 
-    float alpha = smoothstep(0.15, 0.75, density) * 0.45 * uIntensity;
+    float alpha = smoothstep(0.15, 0.75, density) * 0.32 * uIntensity;
     gl_FragColor = vec4(col, alpha);
   }
 `;

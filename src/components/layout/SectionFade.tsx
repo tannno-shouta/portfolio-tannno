@@ -10,6 +10,7 @@ interface Props {
   className?: string;
   style?: CSSProperties;
   as?: 'section' | 'div' | 'article';
+  id?: string;           // アンカージャンプ用
 }
 
 // IntersectionObserver ベースのフェード＋上昇イン演出。
@@ -23,6 +24,7 @@ export function SectionFade({
   className,
   style,
   as = 'section',
+  id,
 }: Props) {
   const Tag =
     as === 'div'     ? motion.div :
@@ -30,6 +32,7 @@ export function SectionFade({
                        motion.section;
   return (
     <Tag
+      id={id}
       className={className}
       style={style}
       initial={{ opacity: 0, y: yOffset, filter: 'blur(8px)' }}

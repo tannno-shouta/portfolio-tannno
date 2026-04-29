@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useScrollProgressValue } from '../../hooks/ScrollProgressContext';
+import { LogoMark } from '../layout/LogoMark';
+import { VerticalNav } from '../layout/VerticalNav';
+import { ScrollIndicator } from '../layout/ScrollIndicator';
 
 interface Props {
   phase: number;
@@ -49,8 +52,22 @@ export function IntroOverlay({ phase, onSkip }: Props) {
   const fadeOutScroll = 1 - Math.min(dissolveProgress * 1.2, 1);
   const finalOpacity = (showName ? fadeIn : 0) * fadeOutScroll;
 
+  // hero モード突入後に常駐ナビを表示（イントロ中は非表示）
+  const showPersistentNav = phase >= 5;
+  // ScrollIndicator: 名前が出るタイミング(phase 3)から表示、最上部のみ
+  const showScrollIndicator = phase >= 3 && scrollProgress < 0.04;
+
   return (
     <>
+      {/* 常駐ナビ（hero モード以降） */}
+      {showPersistentNav && (
+        <>
+          <LogoMark />
+          <VerticalNav />
+        </>
+      )}
+      <ScrollIndicator visible={showScrollIndicator} />
+
       {/* SVG filter 定義（テキストに液状ディスプレースメントを掛ける） */}
       <svg
         aria-hidden
