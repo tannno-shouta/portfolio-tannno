@@ -133,6 +133,7 @@ export function IntroOverlay({ phase, onSkip }: Props) {
             TANNO SHOTA
           </div>
           <div
+            className="hero-subtitle"
             style={{
               fontFamily: 'var(--font-en-body)',
               fontStyle: 'italic',

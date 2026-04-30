@@ -77,6 +77,13 @@ body {
   100% { transform: translateY(16px); opacity: 0; }
 }
 
+/* === Hero の職名サブテキスト: モバイルでは非表示 === */
+@media (max-width: 767px) {
+  .hero-subtitle {
+    display: none !important;
+  }
+}
+
 /* === About: 3本柱の3カラムグリッド（モバイルで1列フォールバック） === */
 .about-pillars-grid {
   margin-top: 4.5rem;
