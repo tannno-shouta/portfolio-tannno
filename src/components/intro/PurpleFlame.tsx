@@ -69,9 +69,13 @@ const FLAME_FRAG = /* glsl */`
     float taper = pow(uv.y, 0.45);
     float fireMask = f * yBase * 1.7;
     fireMask *= (1.0 - taper * 0.5);
-    float edgeX = smoothstep(0.0, 0.18, uv.x) * smoothstep(1.0, 0.82, uv.x);
+    // 横端のフェードも広めにして境界線を消す
+    float edgeX = smoothstep(0.0, 0.28, uv.x) * smoothstep(1.0, 0.72, uv.x);
     fireMask *= edgeX;
-    fireMask *= (1.0 - smoothstep(0.7, 1.0, uv.y));   // 上端で確実に消える
+    // 上端のフェード範囲を広く（線が見えないように）
+    fireMask *= (1.0 - smoothstep(0.45, 1.0, uv.y));
+    // 下端も少しフェード（plane底辺の境界線対策）
+    fireMask *= smoothstep(0.0, 0.08, uv.y);
     fireMask = clamp(fireMask, 0.0, 1.0);
 
     // ── 温度勾配: 根元ほど熱い ──
@@ -152,16 +156,21 @@ export function PurpleFlame({ intensity = 1.0, isMobile = false, phase }: Props)
     : [0, Math.PI / 3, (Math.PI * 2) / 3];
 
   // ドクロの下方から立ち昇る炎（ドクロは少し上、炎は下からが基本）
-  const planeArgs: [number, number, number, number] = [1.9, 3.5, 1, 1];
+  // モバイルは縦長画面で plane の上端境界が見えやすいため大きくして画面外に逃がす
+  const planeArgs: [number, number, number, number] = isMobile
+    ? [2.6, 5.8, 1, 1]
+    : [1.9, 3.5, 1, 1];
+  const groupY  = isMobile ? 1.6  : 0.65;
+  const planeY  = isMobile ? 0.9  : 0.4;
 
   return (
-    <group position={[0, 0.65, 0]}>
+    <group position={[0, groupY, 0]}>
       {angles.map((angle, i) => (
         <mesh
           key={i}
           material={mat}
           rotation={[0, angle, 0]}
-          position={[0, 0.4, 0]}
+          position={[0, planeY, 0]}
         >
           <planeGeometry args={planeArgs} />
         </mesh>
