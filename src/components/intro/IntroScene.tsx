@@ -118,62 +118,74 @@ export function IntroScene() {
   const isMobile = window.innerWidth < 768;
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 1,
-        background: 'var(--bg-void)',
-        // SP の touch スクロールをブロックしないよう透過。
-        // 内部の interactive 要素（Skip / Nav / SNS など）は個別に pointer-events: auto で復活。
-        pointerEvents: 'none',
-      }}
-    >
-      {/* ロード進捗。完了後フェードアウトしつつイントロが開始 */}
-      <LoadingScreen progress={progress} visible={!hasLoaded} />
-      <Canvas
-        camera={{ position: [0, 3.8, 0.3], fov: 50 }}
-        dpr={isMobile ? 1 : Math.min(window.devicePixelRatio, 2)}
-        gl={{ antialias: !isMobile, alpha: false }}
+    <>
+      {/* ── 背景レイヤー (z=1): Canvas のみ。main の下に来て常時見えるが、touch 透過 ── */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 1,
+          background: 'var(--bg-void)',
+          pointerEvents: 'none',
+        }}
       >
-        <color attach="background" args={['#000000']} />
-        <ambientLight intensity={0.015} color="#c89bff" />
-        <AmbientGlow phase={phase} />
-        <CameraRig phase={phase} />
+        <Canvas
+          camera={{ position: [0, 3.8, 0.3], fov: 50 }}
+          dpr={isMobile ? 1 : Math.min(window.devicePixelRatio, 2)}
+          gl={{ antialias: !isMobile, alpha: false }}
+        >
+          <color attach="background" args={['#000000']} />
+          <ambientLight intensity={0.015} color="#c89bff" />
+          <AmbientGlow phase={phase} />
+          <CameraRig phase={phase} />
 
-        {/* 背景・舞う物はカメラに張り付かせ、カメラ移動の影響を受けない */}
-        {/* 火の粉・花びら・霧は最初から舞っている */}
-        <CameraLockedLayer>
-          <FloatingMotes isMobile={isMobile} />
-          <PurpleMist intensity={1.0} />
-        </CameraLockedLayer>
+          {/* 背景・舞う物はカメラに張り付かせ、カメラ移動の影響を受けない */}
+          {/* 火の粉・花びら・霧は最初から舞っている */}
+          <CameraLockedLayer>
+            <FloatingMotes isMobile={isMobile} />
+            <PurpleMist intensity={1.0} />
+          </CameraLockedLayer>
 
-        {/* ドクロ・炎はワールド固定（カメラ移動の影響を受けて立体感が出る） */}
-        {phase >= 1 && (
-          <>
-            <Skull phase={phase} mouseX={mouse.x} mouseY={mouse.y} />
-            {/* 炎は phase 2 で mount し、内部のフェードイン uniform で立ち上げ */}
-            {phase >= 2 && <PurpleFlame isMobile={isMobile} intensity={0.55} phase={phase} />}
-          </>
-        )}
+          {/* ドクロ・炎はワールド固定（カメラ移動の影響を受けて立体感が出る） */}
+          {phase >= 1 && (
+            <>
+              <Skull phase={phase} mouseX={mouse.x} mouseY={mouse.y} />
+              {/* 炎は phase 2 で mount し、内部のフェードイン uniform で立ち上げ */}
+              {phase >= 2 && <PurpleFlame isMobile={isMobile} intensity={0.55} phase={phase} />}
+            </>
+          )}
 
-        <EffectComposer>
-          <Bloom
-            intensity={phase >= 2 ? 2.4 : 0.5}
-            luminanceThreshold={0.25}
-            luminanceSmoothing={0.85}
-            mipmapBlur
-          />
-          <ChromaticAberration
-            blendFunction={BlendFunction.NORMAL}
-            offset={isMobile ? new THREE.Vector2(0, 0) : new THREE.Vector2(0.002, 0.002)}
-          />
-          <Vignette eskil={false} offset={0.4} darkness={0.9} />
-        </EffectComposer>
-      </Canvas>
+          <EffectComposer>
+            <Bloom
+              intensity={phase >= 2 ? 2.4 : 0.5}
+              luminanceThreshold={0.25}
+              luminanceSmoothing={0.85}
+              mipmapBlur
+            />
+            <ChromaticAberration
+              blendFunction={BlendFunction.NORMAL}
+              offset={isMobile ? new THREE.Vector2(0, 0) : new THREE.Vector2(0.002, 0.002)}
+            />
+            <Vignette eskil={false} offset={0.4} darkness={0.9} />
+          </EffectComposer>
+        </Canvas>
+      </div>
 
+      {/* ── UI レイヤー (z=20): main(z=5) より上に来て、Skip / Nav のクリックが効く ── */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 20,
+          pointerEvents: 'none',
+        }}
+      >
+        <LoadingScreen progress={progress} visible={!hasLoaded} />
+        <IntroOverlay phase={phase} onSkip={skip} />
+      </div>
+
+      {/* マウス位置トラッキング（不可視、layout 関係なし） */}
       <MouseDistortion setMouse={(x, y) => setMouse({ x, y })} />
-      <IntroOverlay phase={phase} onSkip={skip} />
-    </div>
+    </>
   );
 }
