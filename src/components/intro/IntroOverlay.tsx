@@ -74,8 +74,8 @@ export function IntroOverlay({ phase, onSkip }: Props) {
 
   // hero モード突入後に常駐ナビを表示（イントロ中は非表示）
   const showPersistentNav = phase >= 5;
-  // ScrollIndicator: 名前が出るタイミング(phase 3)から表示、最上部のみ
-  const showScrollIndicator = phase >= 3 && scrollProgress < 0.04;
+  // ScrollIndicator: 常駐ナビと同じく hero モード以降、最上部のみ
+  const showScrollIndicator = phase >= 5 && scrollProgress < 0.04;
 
   return (
     <>
