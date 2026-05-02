@@ -2,6 +2,7 @@
 export function LogoMark() {
   return (
     <div
+      className="logo-mark"
       style={{
         position: 'fixed',
         top: '2.2rem',

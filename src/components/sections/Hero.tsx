@@ -23,6 +23,7 @@ export function Hero() {
     >
       {/* 上部中央: PORTFOLIO 2026 の微細マーカー */}
       <div
+        className="hero-decor"
         aria-hidden
         style={{
           opacity: decorOpacity,
@@ -43,6 +44,7 @@ export function Hero() {
       >
         <span>· Portfolio 2026 ·</span>
         <span
+          className="hero-decor__line"
           style={{
             width: '1px',
             height: '46px',

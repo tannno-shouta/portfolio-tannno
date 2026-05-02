@@ -77,10 +77,62 @@ body {
   100% { transform: translateY(16px); opacity: 0; }
 }
 
+/* === セクション共通: SP で padding 縮小 / 100dvh 対応 === */
+section[id="hero"] {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+@media (max-width: 768px) {
+  section[id="about"],
+  section[id="works"],
+  section[id="skills"],
+  section[id="contact"] {
+    padding-top: 7rem !important;
+    padding-bottom: 4.5rem !important;
+    padding-left: 1.1rem !important;
+    padding-right: 1.1rem !important;
+  }
+}
+
 /* === Hero の職名サブテキスト: モバイルでは非表示 === */
 @media (max-width: 767px) {
   .hero-subtitle {
     display: none !important;
+  }
+}
+
+/* === Hero 上部装飾 SP 縮小 === */
+@media (max-width: 768px) {
+  .hero-decor {
+    margin-top: 0 !important;
+    font-size: 0.55rem !important;
+    letter-spacing: 0.4em !important;
+  }
+  .hero-decor__line {
+    height: 30px !important;
+  }
+}
+
+/* === LogoMark / VerticalNav の SP 位置調整 === */
+@media (max-width: 768px) {
+  .logo-mark {
+    top: 1.2rem !important;
+    left: 1.2rem !important;
+    font-size: 0.9em;
+  }
+  .logo-mark > div:first-child {
+    font-size: 1.3rem !important;
+  }
+  .vertical-nav {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.35em !important;
+  }
+  .vertical-nav--right {
+    right: 0.9rem !important;
+  }
+  .vertical-nav--left-bottom {
+    left: 0.9rem !important;
+    bottom: 1.4rem !important;
   }
 }
 

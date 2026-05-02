@@ -15,6 +15,7 @@ function NavItem({ side, number, label, href }: ItemProps) {
   return (
     <Tag
       {...(href ? { href } : {})}
+      className={`vertical-nav vertical-nav--${side}`}
       style={{
         position: 'fixed',
         zIndex: 15,
