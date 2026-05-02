@@ -98,3 +98,174 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* === Works: 横長カード + 巨大番号透かし === */
+.work-card {
+  position: relative;
+  display: block;
+  padding: 3.2rem 3rem 2.6rem;
+  border: 1px solid rgba(200, 155, 255, 0.18);
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(20, 10, 40, 0.32), rgba(8, 4, 18, 0.28));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 12px 40px rgba(8, 4, 18, 0.5),
+              inset 0 0 24px rgba(139, 61, 240, 0.08);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.work-card--link {
+  cursor: pointer;
+}
+
+.work-card--link:hover {
+  border-color: rgba(200, 155, 255, 0.5);
+  box-shadow: 0 16px 60px rgba(139, 61, 240, 0.35),
+              inset 0 0 30px rgba(139, 61, 240, 0.18);
+  transform: translateY(-2px);
+}
+
+/* 巨大番号透かし */
+.work-card__watermark {
+  position: absolute;
+  right: -1.5rem;
+  bottom: -3.5rem;
+  font-family: var(--font-en-head);
+  font-weight: 900;
+  font-size: clamp(10rem, 22vw, 18rem);
+  letter-spacing: 0;
+  line-height: 0.85;
+  color: rgba(200, 155, 255, 0.06);
+  text-shadow: 0 0 40px rgba(139, 61, 240, 0.18);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 上部の番号 + リンクラベル */
+.work-card__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-en-body);
+  font-style: italic;
+  font-size: 0.78rem;
+  letter-spacing: 0.4em;
+  color: rgba(200, 155, 255, 0.7);
+  text-transform: uppercase;
+}
+
+.work-card__link-label {
+  color: rgba(200, 155, 255, 0.85);
+  text-shadow: 0 0 8px rgba(139, 61, 240, 0.4);
+}
+
+.work-card__divider {
+  position: relative;
+  margin: 1rem 0 1.4rem;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(200, 155, 255, 0.7), rgba(200, 155, 255, 0));
+}
+
+/* タイトル */
+.work-card__title {
+  position: relative;
+  font-family: var(--font-en-head);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  letter-spacing: 0.18em;
+  color: var(--bone);
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(139, 61, 240, 0.4);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.work-card__category {
+  position: relative;
+  margin-top: 0.5rem;
+  font-family: var(--font-en-body);
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.4vw, 1rem);
+  letter-spacing: 0.08em;
+  color: var(--violet-glow);
+}
+
+.work-card__description {
+  position: relative;
+  margin: 1.6rem 0;
+  font-family: var(--font-ja-body), var(--font-en-body);
+  font-size: clamp(0.88rem, 1.3vw, 1rem);
+  line-height: 1.95;
+  color: rgba(232, 226, 212, 0.85);
+  letter-spacing: 0.04em;
+  max-width: 760px;
+}
+
+.work-card__row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  margin-top: 0.7rem;
+  font-family: var(--font-en-body);
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+  line-height: 1.7;
+  color: rgba(232, 226, 212, 0.8);
+}
+
+.work-card__label {
+  flex: 0 0 auto;
+  width: 4.2rem;
+  font-style: italic;
+  letter-spacing: 0.3em;
+  color: rgba(200, 155, 255, 0.6);
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.work-card__value {
+  flex: 1;
+  min-width: 0;
+}
+
+.work-card__tags {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.7rem;
+}
+
+.work-card__tag {
+  font-family: var(--font-en-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: rgba(200, 155, 255, 0.85);
+  padding: 0.16rem 0.5rem;
+  border: 1px solid rgba(200, 155, 255, 0.25);
+  border-radius: 99px;
+  background: rgba(139, 61, 240, 0.08);
+}
+
+/* モバイル時のカード余白調整 */
+@media (max-width: 768px) {
+  .work-card {
+    padding: 2.4rem 1.6rem 2rem;
+  }
+  .work-card__row {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .work-card__label {
+    width: auto;
+  }
+  .work-card__watermark {
+    right: -1rem;
+    bottom: -2rem;
+  }
+}
