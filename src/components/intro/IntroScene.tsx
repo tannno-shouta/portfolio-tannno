@@ -118,7 +118,17 @@ export function IntroScene() {
   const isMobile = window.innerWidth < 768;
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 1, background: 'var(--bg-void)' }}>
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 1,
+        background: 'var(--bg-void)',
+        // SP の touch スクロールをブロックしないよう透過。
+        // 内部の interactive 要素（Skip / Nav / SNS など）は個別に pointer-events: auto で復活。
+        pointerEvents: 'none',
+      }}
+    >
       {/* ロード進捗。完了後フェードアウトしつつイントロが開始 */}
       <LoadingScreen progress={progress} visible={!hasLoaded} />
       <Canvas
