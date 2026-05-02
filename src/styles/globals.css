@@ -269,3 +269,86 @@ body {
     bottom: -2rem;
   }
 }
+
+/* === Skills: カテゴリ縦積み + 横並びバッジ === */
+.skill-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2.4rem;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(200, 155, 255, 0.14);
+  align-items: start;
+}
+.skill-row:last-child {
+  border-bottom: 1px solid rgba(200, 155, 255, 0.14);
+}
+
+.skill-row__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.skill-row__number {
+  font-family: var(--font-en-body);
+  font-style: italic;
+  font-size: 0.78rem;
+  letter-spacing: 0.4em;
+  color: rgba(200, 155, 255, 0.55);
+  text-transform: uppercase;
+}
+
+.skill-row__label {
+  font-family: var(--font-en-head);
+  font-weight: 900;
+  font-size: clamp(1.2rem, 1.9vw, 1.5rem);
+  letter-spacing: 0.16em;
+  color: var(--bone);
+  text-transform: uppercase;
+  text-shadow: 0 0 14px rgba(139, 61, 240, 0.35);
+  line-height: 1.25;
+}
+
+.skill-row__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.8rem;
+  align-items: flex-start;
+  padding-top: 0.4rem;
+}
+
+.skill-badge {
+  font-family: var(--font-en-body);
+  font-size: clamp(0.78rem, 1.1vw, 0.9rem);
+  letter-spacing: 0.05em;
+  color: rgba(232, 226, 212, 0.92);
+  padding: 0.3rem 0.85rem;
+  border: 1px solid rgba(200, 155, 255, 0.30);
+  border-radius: 99px;
+  background: rgba(139, 61, 240, 0.10);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-badge:hover {
+  color: var(--bone);
+  border-color: rgba(200, 155, 255, 0.7);
+  box-shadow: 0 0 12px rgba(139, 61, 240, 0.5);
+}
+
+@media (max-width: 768px) {
+  .skill-row {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    padding: 1.6rem 0;
+  }
+  .skill-row__badges {
+    padding-top: 0;
+  }
+}

@@ -4,6 +4,7 @@ import { SectionFade } from './components/layout/SectionFade';
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
 import { Works } from './components/sections/Works';
+import { Skills } from './components/sections/Skills';
 import './styles/globals.css';
 
 const sectionStyle: React.CSSProperties = {
@@ -31,13 +32,10 @@ export default function App() {
         {/* Hero: 1st viewport（背景の名前ロゴを見せつつ微細装飾） */}
         <Hero />
 
-        {/* 以下は Step 7-8 で本実装する仮プレースホルダー */}
+        {/* 以下は Step 8 で本実装する仮プレースホルダー */}
         <About />
         <Works />
-
-        <SectionFade as="section" id="skills" style={sectionStyle}>
-          SKILLS — coming soon
-        </SectionFade>
+        <Skills />
 
         <SectionFade as="section" id="contact" style={sectionStyle}>
           CONTACT — coming soon
