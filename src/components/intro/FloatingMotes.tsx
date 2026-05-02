@@ -94,10 +94,10 @@ function Embers({ count, isMobile, scrollProgress }: {
 
   useFrame(({ clock }) => {
     uniforms.uTime.value = clock.getElapsedTime();
-    // スクロール量で「燃焼度」を 0..0.15 → 0..1 に正規化（ドクロ消失と同期）
-    const burnTarget = Math.min(scrollProgress / 0.15, 1);
+    // スクロール量で「燃焼度」を 0..0.08 → 0..1 に正規化（ドクロ消失と同期）
+    const burnTarget = Math.min(scrollProgress / 0.08, 1);
     uniforms.uBurnAmount.value = THREE.MathUtils.lerp(
-      uniforms.uBurnAmount.value, burnTarget, 0.10,
+      uniforms.uBurnAmount.value, burnTarget, 0.18,
     );
   });
 

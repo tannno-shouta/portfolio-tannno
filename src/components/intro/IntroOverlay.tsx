@@ -17,8 +17,8 @@ export function IntroOverlay({ phase, onSkip }: Props) {
   const [liquidProgress, setLiquidProgress] = useState(0);
   // スクロール量（0..1）
   const scrollProgress = useScrollProgressValue();
-  // 0..0.15 で 0..1 に正規化（About が見える前に消える）
-  const dissolveProgress = Math.min(scrollProgress / 0.15, 1);
+  // 0..0.08 で 0..1 に正規化（軽いスクロールで一気に消える）
+  const dissolveProgress = Math.min(scrollProgress / 0.08, 1);
 
   useEffect(() => {
     if (!showName) {
@@ -39,6 +39,26 @@ export function IntroOverlay({ phase, onSkip }: Props) {
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [showName]);
+
+  // イントロ中はスクロール禁止（hero モード phase=5 で解除、Skip でも即解除）
+  useEffect(() => {
+    const lock = phase < 5;
+    if (lock) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      // iOS でのオーバースクロール防止
+      document.body.style.touchAction = 'none';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [phase]);
 
   // 歪み量: 出現時は (1 - liquidProgress) で減衰、スクロール時は dissolveProgress で増加
   // 両者の最大値を取る → 出現が完了した後はスクロールで再び歪む

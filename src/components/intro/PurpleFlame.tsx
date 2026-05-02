@@ -131,7 +131,7 @@ export function PurpleFlame({ intensity = 1.0, isMobile = false, phase }: Props)
     else if (phase >= 4 && cameraIsFront)         target = intensity * 0.5; // hero: 弱火継続
     else                                          target = 0;
     // スクロール時に炎を薄くしていく（ドクロが消えるのと連動）
-    const burnFade = 1.0 - Math.min(scrollProgress / 0.15, 1);
+    const burnFade = 1.0 - Math.min(scrollProgress / 0.08, 1);
     target *= burnFade;
     // フェードインはやや遅め、フェードアウトは早め
     const lerpSpeed = uniforms.uIntensity.value < target ? 0.04 : 0.07;

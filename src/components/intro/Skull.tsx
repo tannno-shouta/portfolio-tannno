@@ -208,11 +208,11 @@ function useSkullFrame(
     );
 
     // 水っぽい消失: hero(phase 5)以降のスクロールで進行
-    // scrollProgress 0..0.15 で 0..1 に正規化（About が見える前に消える）
+    // scrollProgress 0..0.08 で 0..1 に正規化（軽いスクロールで一気に消える）
     const canBurn = phase >= 5;
-    const burnTarget = canBurn ? Math.min(scrollProgress / 0.15, 1) : 0;
+    const burnTarget = canBurn ? Math.min(scrollProgress / 0.08, 1) : 0;
     uniforms.uBurnProgress.value = THREE.MathUtils.lerp(
-      uniforms.uBurnProgress.value, burnTarget, 0.12,
+      uniforms.uBurnProgress.value, burnTarget, 0.18,
     );
 
     // マウスで微妙に傾く程度（自動回転はなし）
