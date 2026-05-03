@@ -13,12 +13,12 @@ interface Work {
 const works: Work[] = [
   {
     number: '01',
-    title: 'MATCHING PHOTO LP',
-    category: 'Landing Page · 3D Web',
+    title: '福岡垢抜けマッチングフォト',
+    category: 'Landing Page',
     description:
-      'マッチングアプリ向けハイクラス写真撮影サービスのランディングページ。世界観を3Dとモーションで表現し、依頼導線まで一貫設計した。',
-    role: 'フロントエンド設計 / WebGLアニメ / コンバージョン最適化',
-    stack: ['Next.js', 'Three.js', 'TypeScript', 'Framer Motion'],
+      'マッチングアプリ用の写真を撮る、福岡の男性向けサービス。服装や髪型を整える"垢抜け"から撮影までまるごとサポートするウェブサイトを制作しました。',
+    role: 'フロントエンド設計 / コンバージョン最適化',
+    stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     href: 'https://matching-photo-lp.vercel.app/',
   },
   {
@@ -48,6 +48,9 @@ function WorkCard({ work }: { work: Work }) {
     ? { href: work.href, target: '_blank', rel: 'noopener noreferrer' }
     : {};
 
+  // タイトルが和文を含む場合は letter-spacing を控えめに（広がりすぎ防止）
+  const titleIsJa = /[぀-ゟ゠-ヿ一-鿿]/.test(work.title);
+
   return (
     <Wrapper
       {...(wrapperProps as object)}
@@ -70,7 +73,12 @@ function WorkCard({ work }: { work: Work }) {
       <div className="work-card__divider" aria-hidden />
 
       {/* タイトル + カテゴリ */}
-      <h3 className="work-card__title">{work.title}</h3>
+      <h3
+        className="work-card__title"
+        style={titleIsJa ? { letterSpacing: '0.04em', textTransform: 'none' } : undefined}
+      >
+        {work.title}
+      </h3>
       <div className="work-card__category">{work.category}</div>
 
       {/* 概要 */}
