@@ -207,34 +207,71 @@ export function About() {
       />
 
       {/* イントロ文 */}
-      <p
-        style={{
-          fontFamily: 'var(--font-ja-body), var(--font-en-body)',
-          fontSize: 'clamp(0.95rem, 1.7vw, 1.18rem)',
-          lineHeight: 2,
-          color: 'rgba(232, 226, 212, 0.92)',
-          letterSpacing: '0.05em',
-          maxWidth: '720px',
-        }}
-      >
-        <strong
+      <div style={{ maxWidth: '760px' }}>
+        {/* 英語タイトル（意図的に2行構成） */}
+        <div
           style={{
             fontFamily: 'var(--font-en-head)',
             fontWeight: 700,
+            fontSize: 'clamp(1.05rem, 1.9vw, 1.45rem)',
+            letterSpacing: '0.08em',
             color: 'var(--bone)',
-            letterSpacing: '0.1em',
-            textShadow: '0 0 12px rgba(200,155,255,0.4)',
+            textShadow: '0 0 14px rgba(200,155,255,0.45)',
+            lineHeight: 1.5,
+            textTransform: 'uppercase',
           }}
         >
-          Engineer & Creative Director — Code, Style, and the Lens.
-        </strong>
-        <br />
-        Based in Fukuoka, Japan.
-        <br />
-        AI・ITコンサルタント / フロントエンドエンジニア × ファッションディレクター / カメラマン。
-        AI・IT で課題を解き、Style で垢抜けさせ、カメラマンとして魅せる。
-        「世の中にかっこいい会社とかっこいい人を満たす」を掲げています。
-      </p>
+          Engineer &amp; Creative Director
+          <br />
+          <span style={{ color: 'var(--violet-glow)' }}>
+            — Code, Style, and the Lens.
+          </span>
+        </div>
+
+        {/* 場所サブタイトル（イタリック） */}
+        <div
+          style={{
+            marginTop: '0.9rem',
+            fontFamily: 'var(--font-en-body)',
+            fontStyle: 'italic',
+            fontSize: 'clamp(0.75rem, 1.15vw, 0.92rem)',
+            color: 'rgba(200,155,255,0.7)',
+            letterSpacing: '0.22em',
+          }}
+        >
+          Based in Fukuoka, Japan.
+        </div>
+
+        {/* 装飾区切り */}
+        <div
+          aria-hidden
+          style={{
+            margin: '1.8rem 0 1.5rem',
+            width: '40px',
+            height: '1px',
+            background:
+              'linear-gradient(90deg, rgba(200,155,255,0.7), rgba(200,155,255,0))',
+          }}
+        />
+
+        {/* 日本語ボディ（意味ごとに改行） */}
+        <p
+          style={{
+            fontFamily: 'var(--font-ja-body), var(--font-en-body)',
+            fontSize: 'clamp(0.92rem, 1.5vw, 1.08rem)',
+            lineHeight: 2,
+            color: 'rgba(232, 226, 212, 0.92)',
+            letterSpacing: '0.05em',
+            margin: 0,
+          }}
+        >
+          AI・ITコンサルタント / フロントエンドエンジニア × ファッションディレクター / カメラマン。
+          <br />
+          AI・IT で課題を解き、Style で垢抜けさせ、カメラマンとして魅せる。
+          <br />
+          「世の中にかっこいい会社とかっこいい人を満たす」を掲げています。
+        </p>
+      </div>
 
       {/* 3本柱 — 3カラムグリッド（モバイルで1列フォールバック） */}
       <div className="about-pillars-grid">
