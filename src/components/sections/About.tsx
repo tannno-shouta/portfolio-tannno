@@ -254,7 +254,22 @@ export function About() {
           }}
         />
 
-        {/* 日本語ボディ（意味ごとに改行） */}
+        {/* 肩書きラベル行（小さめ・1行収まり） */}
+        <p
+          className="about-roles-line"
+          style={{
+            fontFamily: 'var(--font-ja-body), var(--font-en-body)',
+            fontSize: 'clamp(0.72rem, 1.15vw, 0.92rem)',
+            lineHeight: 1.7,
+            color: 'rgba(232, 226, 212, 0.78)',
+            letterSpacing: '0.02em',
+            margin: '0 0 0.9rem',
+          }}
+        >
+          AI・ITコンサルタント / フロントエンドエンジニア × ファッションディレクター / カメラマン
+        </p>
+
+        {/* 日本語ボディ */}
         <p
           style={{
             fontFamily: 'var(--font-ja-body), var(--font-en-body)',
@@ -265,8 +280,6 @@ export function About() {
             margin: 0,
           }}
         >
-          AI・ITコンサルタント / フロントエンドエンジニア × ファッションディレクター / カメラマン。
-          <br />
           AI・IT で課題を解き、Style で垢抜けさせ、カメラマンとして魅せる。
           <br />
           「世の中にかっこいい会社とかっこいい人を満たす」を掲げています。
