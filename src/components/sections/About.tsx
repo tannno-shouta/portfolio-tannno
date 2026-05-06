@@ -226,11 +226,14 @@ export function About() {
             textShadow: '0 0 12px rgba(200,155,255,0.4)',
           }}
         >
-          Frontend Engineer based in Fukuoka, Japan.
+          Engineer & Creative Director — Code, Style, and the Lens.
         </strong>
         <br />
-        見た目と仕組みを両方デザインする。Code, AI, Style — 三本柱の交差点で、
-        依頼者が「自分でも理由を言える美しさ」にたどり着けるよう導いている。
+        Based in Fukuoka, Japan.
+        <br />
+        AI・ITコンサルタント / フロントエンドエンジニア × ファッションディレクター / カメラマン。
+        AI・IT で課題を解き、Style で垢抜けさせ、カメラマンとして魅せる。
+        「世の中にかっこいい会社とかっこいい人を満たす」を掲げています。
       </p>
 
       {/* 3本柱 — 3カラムグリッド（モバイルで1列フォールバック） */}
@@ -240,9 +243,9 @@ export function About() {
           title="Frontend"
           tagline="Interfaces that move and feel"
           achievements={[
-            'React 等を用いたアジャイル開発',
-            '高齢者向けシステムの UI 抜本改善による現場の操作エラー防止',
-            '高単価 EC サイトでの A/B テストを通じた高速な仮説検証',
+            'React・TypeScript 等を用いたアジャイル開発',
+            '高齢者向けシステムの UI 抜本改善により顧客満足度に貢献',
+            '高単価 EC サイトでの A/B テストを通じた高速な仮説検証・運用',
           ]}
         />
         <Pillar
@@ -252,7 +255,7 @@ export function About() {
           achievements={[
             'Claude Code を用いた「バイブコーディング」で、圧倒的なスピードで AI を実務ツールとして開発',
             '非エンジニア層を巻き込んだ AI 導入レクチャーの主導',
-            '業務自動化による部署全体の目標達成率 10% 向上',
+            '業務自動化により部署全体の売上目標達成率 20%↑',
           ]}
         />
         <Pillar

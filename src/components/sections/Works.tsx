@@ -41,15 +41,6 @@ const works: Work[] = [
   },
   {
     number: '03',
-    title: 'AI WORKFLOW SYSTEM',
-    category: 'AI Tooling · Internal Ops',
-    description:
-      '生成AIを使った社内ワークフロー自動化システム。非エンジニア層を巻き込んだAI導入レクチャーを主導し、部署全体の目標達成率を10%向上させた。',
-    role: 'プロンプト設計 / 実装 / 運用レクチャー',
-    stack: ['Claude API', 'Python', 'GAS', 'Slack API'],
-  },
-  {
-    number: '04',
     title: 'PERSONAL BRANDING LP',
     category: 'Landing Page · Brand',
     description:

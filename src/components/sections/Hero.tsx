@@ -68,7 +68,7 @@ export function Hero() {
           border: 0,
         }}
       >
-        TANNO SHOTA — Frontend Engineer · AI Consultant · Style Consultant
+        TANNO SHOTA — Engineer · Creative Director · Photographer, based in Fukuoka.
       </h1>
     </section>
   );

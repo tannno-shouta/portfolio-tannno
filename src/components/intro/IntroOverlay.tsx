@@ -166,7 +166,7 @@ export function IntroOverlay({ phase, onSkip }: Props) {
                 '0 0 18px rgba(200,155,255,0.6), 0 0 50px rgba(139,61,240,0.4), 0 0 3px rgba(255,255,255,0.4)',
             }}
           >
-            Frontend Engineer &nbsp;·&nbsp; AI Consultant &nbsp;·&nbsp; Style Consultant
+            Making companies and people look the part.
           </div>
         </div>
 
