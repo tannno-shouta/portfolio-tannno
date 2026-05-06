@@ -49,24 +49,21 @@ export function IntroOverlay({ phase, onSkip }: Props) {
       // iOS でのオーバースクロール防止
       document.body.style.touchAction = 'none';
     } else {
-      // iOS Safari で確実にスクロールを再開させるため、明示的な値で解除＋リフロー
-      document.body.style.overflow = 'auto';
-      document.documentElement.style.overflow = 'auto';
-      document.body.style.touchAction = 'pan-y';
-      // 次フレームで強制リフロー → タッチハンドラを再初期化
-      requestAnimationFrame(() => {
-        // 値を空にしてグローバル CSS のデフォルトに戻す
-        document.body.style.overflow = '';
-        document.documentElement.style.overflow = '';
-        document.body.style.touchAction = '';
-        // 強制リフロー（iOS Safari のスクロール状態を再評価させる）
-        void document.body.offsetHeight;
-      });
+      // iOS Safari で確実にスクロールを再開させる
+      // removeProperty で確実にインラインスタイルを除去（'' 代入だと残るケースあり）
+      document.body.style.removeProperty('overflow');
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('touch-action');
+      // 強制リフロー
+      void document.body.offsetHeight;
+      // iOS Safari のスクロール状態を「起こす」: 現在位置に scrollTo すると
+      // タッチイベントの取り回しが再初期化される（既知の iOS Safari ハック）
+      window.scrollTo(0, window.scrollY);
     }
     return () => {
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      document.body.style.touchAction = '';
+      document.body.style.removeProperty('overflow');
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('touch-action');
     };
   }, [phase]);
 
@@ -126,6 +123,7 @@ export function IntroOverlay({ phase, onSkip }: Props) {
         style={{
           position: 'fixed', inset: 0,
           pointerEvents: 'none',
+          touchAction: 'pan-y',
           zIndex: 10,
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center',
@@ -135,7 +133,8 @@ export function IntroOverlay({ phase, onSkip }: Props) {
         <div
           style={{
             opacity: finalOpacity,
-            filter: 'url(#liquid-name)',
+            // distortion がほぼ 0 のときは SVG フィルタを無効化（モバイル GPU 負荷削減）
+            filter: distortion > 0.001 ? 'url(#liquid-name)' : 'none',
             transition: 'opacity 0.2s ease',
             display: 'flex',
             flexDirection: 'column',

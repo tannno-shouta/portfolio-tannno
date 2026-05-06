@@ -127,6 +127,7 @@ export function IntroScene() {
           zIndex: 1,
           background: 'var(--bg-void)',
           pointerEvents: 'none',
+          touchAction: 'pan-y',
         }}
       >
         <Canvas
@@ -178,6 +179,7 @@ export function IntroScene() {
           inset: 0,
           zIndex: 20,
           pointerEvents: 'none',
+          touchAction: 'pan-y',
         }}
       >
         <LoadingScreen progress={progress} visible={!hasLoaded} />
