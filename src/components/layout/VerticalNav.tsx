@@ -20,6 +20,8 @@ function NavItem({ side, number, label, href }: ItemProps) {
         position: 'fixed',
         zIndex: 15,
         pointerEvents: href ? 'auto' : 'none',
+        // 縦スクロールはこの要素を素通りさせる（モバイルで scroll が止まる対策）
+        touchAction: 'pan-y',
         userSelect: 'none',
         textDecoration: 'none',
         ...positionStyle,

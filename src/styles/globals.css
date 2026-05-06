@@ -32,6 +32,12 @@ html, body, #root {
   overflow-x: hidden;
 }
 
+/* モバイルで縦スクロールが固定要素に吸われないようにする */
+html, body {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
 html {
   scroll-behavior: smooth;
 }

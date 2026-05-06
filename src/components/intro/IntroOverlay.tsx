@@ -49,9 +49,19 @@ export function IntroOverlay({ phase, onSkip }: Props) {
       // iOS でのオーバースクロール防止
       document.body.style.touchAction = 'none';
     } else {
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      document.body.style.touchAction = '';
+      // iOS Safari で確実にスクロールを再開させるため、明示的な値で解除＋リフロー
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+      document.body.style.touchAction = 'pan-y';
+      // 次フレームで強制リフロー → タッチハンドラを再初期化
+      requestAnimationFrame(() => {
+        // 値を空にしてグローバル CSS のデフォルトに戻す
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        document.body.style.touchAction = '';
+        // 強制リフロー（iOS Safari のスクロール状態を再評価させる）
+        void document.body.offsetHeight;
+      });
     }
     return () => {
       document.body.style.overflow = '';
