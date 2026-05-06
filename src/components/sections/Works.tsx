@@ -23,6 +23,24 @@ const works: Work[] = [
   },
   {
     number: '02',
+    title: 'wardrobe-roi',
+    category: 'ファッションコーディネート提案アプリ',
+    description:
+      '自分の持ってる服を登録すると、AIがその日のコーディネートを提案してくれるファッションアプリです。毎日のファッションをもっと楽しむ、手持ちの服を活かしきるために開発しました。',
+    role: '個人開発 / 設計・実装',
+    stack: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'shadcn/ui',
+      'Supabase',
+      'Claude API',
+    ],
+    href: 'https://wardrobe-d2cf32m6c-tannnoshoutas-projects.vercel.app/',
+  },
+  {
+    number: '03',
     title: 'AI WORKFLOW SYSTEM',
     category: 'AI Tooling · Internal Ops',
     description:
@@ -31,7 +49,7 @@ const works: Work[] = [
     stack: ['Claude API', 'Python', 'GAS', 'Slack API'],
   },
   {
-    number: '03',
+    number: '04',
     title: 'PERSONAL BRANDING LP',
     category: 'Landing Page · Brand',
     description:
