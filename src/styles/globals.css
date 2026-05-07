@@ -38,6 +38,12 @@ html, body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* react-three-fiber の <Canvas> は内部で touch-action: none を強制する。
+   モバイルで縦スクロールを通すために pan-y で上書き（!important で確実に優先）。 */
+canvas {
+  touch-action: pan-y !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
