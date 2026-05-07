@@ -134,6 +134,12 @@ export function IntroScene() {
           camera={{ position: [0, 3.8, 0.3], fov: 50 }}
           dpr={isMobile ? 1 : Math.min(window.devicePixelRatio, 2)}
           gl={{ antialias: !isMobile, alpha: false }}
+          // R3F のデフォルト style={{ touchAction: 'none' }} を上書き → iOS で縦スクロール通す
+          style={{ touchAction: 'pan-y' }}
+          // canvas DOM 要素にも直接 touchAction を上書き（R3F が後付けで none にしないよう保険）
+          onCreated={({ gl }) => {
+            gl.domElement.style.touchAction = 'pan-y';
+          }}
         >
           <color attach="background" args={['#000000']} />
           <ambientLight intensity={0.015} color="#c89bff" />

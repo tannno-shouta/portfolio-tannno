@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 const STORAGE_KEY = 'intro-played';
 
@@ -11,7 +11,13 @@ export function useIntroState(enabled: boolean = true) {
     return alreadyPlayed ? 5 : 0;
   });
 
+  // 進行中タイマーを ref で保持し、Skip 時にも確実にクリアできるようにする
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+
   const skip = useCallback(() => {
+    // 既存タイマーを全部止めないと、後続の setPhase で phase が戻ってしまう
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
     sessionStorage.setItem(STORAGE_KEY, 'true');
     setPhase(5);
   }, []);
@@ -35,10 +41,12 @@ export function useIntroState(enabled: boolean = true) {
     const completionTimer = setTimeout(() => {
       sessionStorage.setItem(STORAGE_KEY, 'true');
     }, 8500);
+    timersRef.current = [...timers, completionTimer];
 
     return () => {
       timers.forEach(clearTimeout);
       clearTimeout(completionTimer);
+      timersRef.current = [];
     };
   }, [enabled]);
 
