@@ -13,8 +13,8 @@ interface Work {
 const works: Work[] = [
   {
     number: '01',
-    title: '福岡垢抜けマッチングフォト',
-    category: 'Landing Page',
+    title: 'MATCHING PHOTO FUKUOKA',
+    category: '福岡垢抜けマッチングフォト',
     description:
       'マッチングアプリ用の写真を撮る、福岡の男性向けサービス。服装や髪型を整える"垢抜け"から撮影までまるごとサポートするウェブサイトを制作しました。',
     role: 'フロントエンド設計 / コンバージョン最適化',
