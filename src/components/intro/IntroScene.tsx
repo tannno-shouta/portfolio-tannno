@@ -104,10 +104,11 @@ export function IntroScene() {
   const { progress, active } = useProgress();
   const [hasLoaded, setHasLoaded] = useState(false);
 
-  // 100% 到達後、少し溜めてからイントロ開始（演出の一拍）
+  // 100% 到達後、十分に溜めてからイントロ開始
+  // GPU/シェーダーのウォームアップ時間を確保して、モバイルでのカクつき・タッチ遅延を緩和
   useEffect(() => {
     if (progress >= 100 && !active && !hasLoaded) {
-      const timer = setTimeout(() => setHasLoaded(true), 500);
+      const timer = setTimeout(() => setHasLoaded(true), 1800);
       return () => clearTimeout(timer);
     }
   }, [progress, active, hasLoaded]);
@@ -116,6 +117,15 @@ export function IntroScene() {
   const { phase, skip } = useIntroState(hasLoaded);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const isMobile = window.innerWidth < 768;
+
+  // Skip: phase=5 にした上で About セクションまでスムーススクロール
+  // これにより dissolveProgress が 1 に到達しドクロ・炎・名前が一斉に溶けて消える
+  const handleSkip = () => {
+    skip();
+    requestAnimationFrame(() => {
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  };
 
   return (
     <>
@@ -189,7 +199,7 @@ export function IntroScene() {
         }}
       >
         <LoadingScreen progress={progress} visible={!hasLoaded} />
-        <IntroOverlay phase={phase} onSkip={skip} />
+        <IntroOverlay phase={phase} onSkip={handleSkip} />
       </div>
 
       {/* マウス位置トラッキング（不可視、layout 関係なし） */}
