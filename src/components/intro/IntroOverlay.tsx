@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useScrollProgressValue } from '../../hooks/ScrollProgressContext';
 import { LogoMark } from '../layout/LogoMark';
 import { VerticalNav } from '../layout/VerticalNav';
@@ -41,29 +41,35 @@ export function IntroOverlay({ phase, onSkip }: Props) {
   }, [showName]);
 
   // イントロ中はスクロール禁止（hero モード phase=5 で解除、Skip でも即解除）
+  // iOS Safari でタッチハンドラがスリープしない position:fixed ロックパターンを採用
+  const savedScrollY = useRef(0);
   useEffect(() => {
     const lock = phase < 5;
     if (lock) {
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-      // iOS でのオーバースクロール防止
-      document.body.style.touchAction = 'none';
+      // 現在のスクロール位置を保存
+      savedScrollY.current = window.scrollY;
+      // body を画面に固定: position:fixed + top で見た目の位置をキープ
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${savedScrollY.current}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
     } else {
-      // iOS Safari で確実にスクロールを再開させる
-      // removeProperty で確実にインラインスタイルを除去（'' 代入だと残るケースあり）
-      document.body.style.removeProperty('overflow');
-      document.documentElement.style.removeProperty('overflow');
-      document.body.style.removeProperty('touch-action');
-      // 強制リフロー
-      void document.body.offsetHeight;
-      // iOS Safari のスクロール状態を「起こす」: 現在位置に scrollTo すると
-      // タッチイベントの取り回しが再初期化される（既知の iOS Safari ハック）
-      window.scrollTo(0, window.scrollY);
+      // 固定を解除して通常フローに戻す
+      document.body.style.removeProperty('position');
+      document.body.style.removeProperty('top');
+      document.body.style.removeProperty('left');
+      document.body.style.removeProperty('right');
+      document.body.style.removeProperty('width');
+      // 保存しておいた位置に復元（ロック中の見た目位置から飛ばさない）
+      window.scrollTo(0, savedScrollY.current);
     }
     return () => {
-      document.body.style.removeProperty('overflow');
-      document.documentElement.style.removeProperty('overflow');
-      document.body.style.removeProperty('touch-action');
+      document.body.style.removeProperty('position');
+      document.body.style.removeProperty('top');
+      document.body.style.removeProperty('left');
+      document.body.style.removeProperty('right');
+      document.body.style.removeProperty('width');
     };
   }, [phase]);
 
