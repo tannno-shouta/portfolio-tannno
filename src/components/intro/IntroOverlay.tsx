@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useScrollProgressValue } from '../../hooks/ScrollProgressContext';
 import { LogoMark } from '../layout/LogoMark';
 import { VerticalNav } from '../layout/VerticalNav';
@@ -40,38 +40,8 @@ export function IntroOverlay({ phase, onSkip }: Props) {
     return () => cancelAnimationFrame(raf);
   }, [showName]);
 
-  // イントロ中はスクロール禁止（hero モード phase=5 で解除、Skip でも即解除）
-  // iOS Safari でタッチハンドラがスリープしない position:fixed ロックパターンを採用
-  const savedScrollY = useRef(0);
-  useEffect(() => {
-    const lock = phase < 5;
-    if (lock) {
-      // 現在のスクロール位置を保存
-      savedScrollY.current = window.scrollY;
-      // body を画面に固定: position:fixed + top で見た目の位置をキープ
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${savedScrollY.current}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
-    } else {
-      // 固定を解除して通常フローに戻す
-      document.body.style.removeProperty('position');
-      document.body.style.removeProperty('top');
-      document.body.style.removeProperty('left');
-      document.body.style.removeProperty('right');
-      document.body.style.removeProperty('width');
-      // 保存しておいた位置に復元（ロック中の見た目位置から飛ばさない）
-      window.scrollTo(0, savedScrollY.current);
-    }
-    return () => {
-      document.body.style.removeProperty('position');
-      document.body.style.removeProperty('top');
-      document.body.style.removeProperty('left');
-      document.body.style.removeProperty('right');
-      document.body.style.removeProperty('width');
-    };
-  }, [phase]);
+  // イントロ中もスクロールは禁止しない（iOS Safari のタッチハンドラスリープ問題を回避）
+  // ユーザーがスクロールすると dissolveProgress が増加してイントロが自然に溶けて消える
 
   // 歪み量: 出現時は (1 - liquidProgress) で減衰、スクロール時は dissolveProgress で増加
   // 両者の最大値を取る → 出現が完了した後はスクロールで再び歪む
