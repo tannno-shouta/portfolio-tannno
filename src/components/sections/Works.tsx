@@ -41,12 +41,13 @@ const works: Work[] = [
   },
   {
     number: '03',
-    title: 'PERSONAL BRANDING LP',
-    category: 'Landing Page · Brand',
+    title: 'CLAD.',
+    category: 'ブランド企業向けHP制作スタジオ',
     description:
-      '個人事業主・経営者向けに「見た目で得をする」洗練ランディングページ。コピー・デザイン・実装まで一貫対応。',
-    role: 'コピー / UI・UX / 実装',
-    stack: ['Next.js', 'Tailwind', 'Framer Motion'],
+      '「テンプレートでは届かない領域へ」。スタイリスト / フロントエンドエンジニア × AI / コンサル視点で、ブランド企業のHPを"作品"として仕立てるスタジオです。3つのプリセットから方向性を選び、月額運用まで一貫してブランドの育成を並走します。',
+    role: 'スタジオ運営 / 設計・実装',
+    stack: ['Vite', 'React', 'TypeScript', 'Tailwind CSS', 'Motion'],
+    href: 'https://clad-studio.vercel.app/',
   },
 ];
 
