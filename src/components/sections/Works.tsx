@@ -45,8 +45,18 @@ const works: Work[] = [
     category: 'ブランド企業向けHP制作スタジオ',
     description:
       '「テンプレートでは届かない領域へ」。スタイリスト / フロントエンドエンジニア × AI / コンサル視点で、ブランド企業のHPを"作品"として仕立てるスタジオです。3つのプリセットから方向性を選び、月額運用まで一貫してブランドの育成を並走します。',
-    role: 'スタジオ運営 / 設計・実装',
-    stack: ['Vite', 'React', 'TypeScript', 'Tailwind CSS', 'Motion'],
+    role: '個人開発 / 設計・実装・運用',
+    stack: [
+      'React',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS',
+      'Framer Motion',
+      'React Hook Form',
+      'Zod',
+      'Resend',
+      'Vercel',
+    ],
     href: 'https://clad-studio.vercel.app/',
   },
 ];
