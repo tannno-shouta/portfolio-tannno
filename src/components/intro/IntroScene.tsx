@@ -10,6 +10,7 @@ import { PurpleMist } from './PurpleMist';
 import { FloatingMotes } from './FloatingMotes';
 import { IntroOverlay } from './IntroOverlay';
 import { LoadingScreen } from './LoadingScreen';
+import { PeriodicLightning } from './PeriodicLightning';
 import { useIntroState } from './useIntroState';
 
 // カメラを上→正面へ弧を描いて移動させる
@@ -129,7 +130,7 @@ export function IntroScene() {
 
   return (
     <>
-      {/* ── 背景レイヤー (z=1): Canvas のみ。main の下に来て常時見えるが、touch 透過 ── */}
+      {/* ── 背景レイヤー (z=1): Lightning(最深) → Canvas(3D) の順で重ねる ── */}
       <div
         style={{
           position: 'fixed',
@@ -140,18 +141,24 @@ export function IntroScene() {
           touchAction: 'pan-y',
         }}
       >
+        {/* 最深部の遠雷レイヤー（intro 完了後のみ点灯、定期的に閃光） */}
+        <PeriodicLightning enabled={phase >= 5} isMobile={isMobile} />
+
+        {/* 3D Canvas: alpha:true で透過させ、背後の Lightning を透かす */}
         <Canvas
           camera={{ position: [0, 3.8, 0.3], fov: 50 }}
           dpr={isMobile ? 1 : Math.min(window.devicePixelRatio, 2)}
-          gl={{ antialias: !isMobile, alpha: false }}
+          gl={{ antialias: !isMobile, alpha: true }}
           // R3F のデフォルト style={{ touchAction: 'none' }} を上書き → iOS で縦スクロール通す
-          style={{ touchAction: 'pan-y' }}
+          // position:absolute で Lightning と重ねる
+          style={{ touchAction: 'pan-y', position: 'absolute', inset: 0 }}
           // canvas DOM 要素にも直接 touchAction を上書き（R3F が後付けで none にしないよう保険）
           onCreated={({ gl }) => {
             gl.domElement.style.touchAction = 'pan-y';
+            // 透過確保: クリアカラーを完全透明に
+            gl.setClearColor(0x000000, 0);
           }}
         >
-          <color attach="background" args={['#000000']} />
           <ambientLight intensity={0.015} color="#c89bff" />
           <AmbientGlow phase={phase} />
           <CameraRig phase={phase} />
