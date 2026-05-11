@@ -118,8 +118,8 @@ export function IntroOverlay({ phase, onSkip }: Props) {
             gap: '0.6em',
             userSelect: 'none',
             // 画面下方に押し下げ。ビューポート高さが低い時は ScrollIndicator と
-            // 重ならないよう、画面下から最低 220px の余白を確保するように clamp
-            transform: 'translateY(clamp(20px, calc(50vh - 220px), 180px))',
+            // 重ならないよう、画面下から最低 200px の余白を確保するように clamp
+            transform: 'translateY(clamp(40px, calc(50vh - 200px), 230px))',
           }}
         >
           {/* 1行統合 */}
