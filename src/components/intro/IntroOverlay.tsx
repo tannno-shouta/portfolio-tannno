@@ -57,8 +57,19 @@ export function IntroOverlay({ phase, onSkip }: Props) {
 
   // hero モード突入後に常駐ナビを表示（イントロ中は非表示）
   const showPersistentNav = phase >= 5;
-  // ScrollIndicator: 常駐ナビと同じく hero モード以降、最上部のみ
-  const showScrollIndicator = phase >= 5 && scrollProgress < 0.04;
+
+  // ScrollIndicator: 最初の雷が落ちるタイミング（phase=5 から 1.5秒後）で出現
+  // PeriodicLightning の初回閃光と同じディレイで合わせ、嵐の演出と同期させる
+  const [firstStrikeFired, setFirstStrikeFired] = useState(false);
+  useEffect(() => {
+    if (phase < 5) {
+      setFirstStrikeFired(false);
+      return;
+    }
+    const timer = setTimeout(() => setFirstStrikeFired(true), 1500);
+    return () => clearTimeout(timer);
+  }, [phase]);
+  const showScrollIndicator = firstStrikeFired && scrollProgress < 0.04;
 
   return (
     <>
